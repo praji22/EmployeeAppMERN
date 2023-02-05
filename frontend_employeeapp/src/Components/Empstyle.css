@@ -1,0 +1,30 @@
+.wrapper{
+    width:80%;
+    margin: 0 auto;
+   }
+.lefthome{
+    background-color: #deeefe;
+    margin: 0;
+    padding: 0;
+}
+.righthome{
+    background-color: #0e59be;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-weight: normal;
+}
+section{
+    padding: 30px 0px 30px 30px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.imgh{
+width: 100%;
+}
+.nav-link{
+    font-weight: bold;
+}
+.smlink{
+    font-weight: bold;
+    text-decoration: none;
+}
