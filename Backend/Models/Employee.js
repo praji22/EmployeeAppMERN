@@ -5,6 +5,8 @@ const employeeSchema = Mongoose.Schema(
         location:String,
         position:String,
         salary:Number,
+        email:String,
+        password:String
     }
 );
 var employeeModel = Mongoose.model("employees",employeeSchema);
