@@ -1,7 +1,10 @@
+import axios from 'axios';
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar'
 
 const Employeeform = () => {
+    let Navigate=useNavigate();
     const [data,setData] = useState(
         {
             name:"",
@@ -19,8 +22,30 @@ const Employeeform = () => {
         )
     }
 
-    const readvalues =()=>{
+    const addformvalues =()=>{
         console.log(data)
+        axios.post("http://localhost:3001/addemployee",data)
+        .then((response)=>{
+            console.log(response.data)
+            if(response.data.status==="Success"){
+                alert("Employee added successfully")
+                setData(
+                    {
+                        name:"",
+                        position:"",
+                        location:"",
+                        salary:0
+                   }
+                )
+            }
+            else{
+                alert("Error occured")
+            }
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+        Navigate("/viewemployees")
     }
 
 
@@ -67,8 +92,8 @@ const Employeeform = () => {
                      value={data.salary}
                      name='salary'/>
                 </div>
-                <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                    <button className="btn btn-info" onClick={readvalues}>Submit</button>
+             <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                    <button className="btn btn-info" onClick={addformvalues}>Submit</button>
                 </div>
             </div>
         </div>

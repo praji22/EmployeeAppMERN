@@ -31,7 +31,7 @@ const Signup = () => {
             {
               name:"",
               email:"",
-              password:""
+              password:"",
             })
         }
         else{alert("error occured")

@@ -8,7 +8,6 @@ const jwt = require('jsonwebtoken')
 const employeeModel = require('./Models/Employee')
 const userModel = require('./Models/Users')
 
-
 let app = Express()
 
 app.use(BodyParser.urlencoded({extended:true}))
@@ -35,7 +34,7 @@ app.post('/signup',async(req,res)=>{
     res.json({"status":"Success","data":data})
 })
 
-// Admin Signin
+// Signin
 app.post('/signin',async(req,res)=>{
     var email = req.body.email
     var password = req.body.password
@@ -54,30 +53,14 @@ app.post('/signin',async(req,res)=>{
    
 })
 
-// User Signin
-app.post('/signinuser',async(req,res)=>{
-    var email = req.body.email
-    var password = req.body.password
-    let result = userModel.find({email:email},(err,data)=>{
-        if (data.length>0) {
-            const passwordValidator = bcrpt.compareSync(password,data[0].password)
-            if (passwordValidator) {
-               res.json({"status":"success","data":data}) 
-            } else {
-                res.json("Invalid Password")
-            }
-        } else {
-            res.json({"status":"failed","data":"Invalid email id"})
-        }
-    })
-})
 
 // Add Employee
 app.post('/addemployee',async(req,res)=>{
-    let data = new employeeModel({name:req.body.name,
+    let data = new employeeModel({
+        name:req.body.name,
         position:req.body.position,
         location:req.body.location,
-        salary:req.body.salary,
+        salary:req.body.salary
         })
     console.log(data)
     await data.save()

@@ -5,42 +5,60 @@ import NavbarHome from './NavbarHome';
 
 const Signin = () => {
     let Navigate=useNavigate();
-    const [data,setData] = useState(
-        {
-            email:"",
-            password:""
-        }
-      )
-    
-      const inputHandler =(event)=>{
-        const{name,value}=event.target
-        setData(
-            (previousState)=>(
-                {...previousState,[name]:value})
-        )
+    const [email,setEmail]=useState('')
+    const [password,setPassword]=useState('')
+    const checkSignin=()=>{
+      const userData={
+          "email":email,
+          "password":password
+
       }
-      const signinValues =()=>{
-        console.log(data)
-        axios.post("http://localhost:3001/signin",data)
-        .then(
-          (response)=>{
-            console.log(response.data.data.length)
-            if (response.data.data.length === 1) {
-              let empname=response.data.data[0].name;
-              alert("Login Successfully");
-              sessionStorage.setItem("name",empname);
-              Navigate("/viewuser")
-            }
-            else{alert("Invalid data")
-            }
+      console.log(userData);
+      axios.post('http://localhost:3001/signin',userData)
+      .then((response)=>{
+          console.log(response.data)
+          let position=response.data.data[0].position;
+          console.log(position);
+          if(response.data.status==="success" || position==="Admin"){
+               console.log("Admin")
+               alert("Login Successfully");
+              Navigate("/viewemployees")
           }
-        )
-        .catch(
-          (error)=>{
-            console.log(error)
-          }
-        )
-    }
+          else{alert("Invalid data")
+            }
+        })
+      }
+      
+
+    
+    //  const inputHandler =(event)=>{
+    //     const{name,value}=event.target
+    //     setData(
+    //         (previousState)=>(
+    //             {...previousState,[name]:value})
+    //     )
+    //   }
+    //   const signinValues =()=>{
+    //     console.log(data)
+    //     axios.post("http://localhost:3001/signin",data)
+    //     .then(
+    //       (response)=>{
+    //         console.log(response.data)
+    //         let position=response.data.data[0].position;
+    //         console.log(position)
+    //         if (response.data.status==="success" || position==="Admin") {
+    //           console.log(Admin)
+              
+    //          }
+            
+    //       }
+    //     )
+    //     .catch(
+    //       (error)=>{
+    //         console.log(error)
+    //       }
+    //     )
+    // }
 
 
   return (
@@ -60,17 +78,17 @@ const Signin = () => {
                 <input type="text" 
                 className="form-control w-75" 
                 placeholder='Enter Your email'
-                onChange={inputHandler}
-                value={data.email}
+                onChange={(e)=>setEmail(e.target.value)}
+                // value={data.email}
                 name='email'/><br/>
                 <label htmlFor="" className="form-label">Password</label><br/>
                 <input type="text" 
                 className="form-control w-75" 
                 placeholder='Enter Password'
-                onChange={inputHandler}
-                value={data.password}
+                onChange={(e)=>setPassword(e.target.value)}
+                // value={data.password}
                 name='password'/><br/>
-                <button className="btn btn-info" onClick={signinValues}>Login</button>
+                <button className="btn btn-info" onClick={checkSignin}>Login</button>
                 </section>
             </div>
         </div>

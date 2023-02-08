@@ -15,7 +15,7 @@ function App() {
     <Route path='/signin' exact element={<Signin/>}/>
     <Route path='/signup' exact element={<Signup/>}/>
     <Route path='/viewemployees' exact element={<Admindashboard/>}/>
-    <Route path='/employeeform' exact element={<Employeeform/>}/>
+    <Route path='/addemployee' exact element={<Employeeform/>}/>
     <Route path='/viewuser' exact element={<Userdashboard/>}/>
    </Routes>
    </BrowserRouter> 
